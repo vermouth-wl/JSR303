@@ -28,7 +28,9 @@ public class UserController {
 
     // 创建验证方法，测试表单数据验证
     @RequestMapping(value = "/testValidate", method = RequestMethod.POST)
+    // 通过@Valid注解告诉mvc User对象在绑定表单数据后要使用JSR303进行数据验证, 绑定结果保存到BindResult的对象中
     public String testValidate(@Valid User user, BindingResult bindingResult){
+        // 判断BindResult对象中有没有保存错误信息，无则跳过,有则输出并前台使用mvc标签库中的<fm:errors>标签提醒用户
         if (bindingResult.getErrorCount() > 0) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 System.out.println(fieldError.getField() + ": " + fieldError.getDefaultMessage());
